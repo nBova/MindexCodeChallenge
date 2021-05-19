@@ -60,17 +60,29 @@ namespace challenge.Services
             return newEmployee;
         }
 
+        /**
+         * Creates and returns a ReportingStructure given an Employee id.
+         */
         public ReportingStructure GetReportingStructure(String id)
         {
-            Employee baseEmployee = GetById(id);
-            int count = baseEmployee.DirectReports.Count;
-            foreach(Employee employee in baseEmployee.DirectReports)
+            Employee employee = GetById(id);
+            int count = GetTotalReports(id);
+            return new ReportingStructure { employee = employee, numberOfReports = count };
+        }
+
+        /**
+         * Recursively goes through the base employee and their direct reports, returns the total number
+         * of direct reports under the given employee ID.
+         */
+        private int GetTotalReports(String id)
+        {
+            Employee employee = GetById(id); // Get the Employee so we can look through their direct reports
+            int count = 0;
+            foreach(Employee directReport in employee.DirectReports)
             {
-                List<Employee> reports = GetById(employee.EmployeeId).DirectReports;
-                if(reports != null)
-                    count += reports.Count;
+                count += 1 + GetTotalReports(directReport.EmployeeId);  // Increment for each Employee found, also check their direct reports
             }
-            return new ReportingStructure { employee = baseEmployee, numberOfReports = count };
+            return count;
         }
     }
 }
