@@ -59,5 +59,18 @@ namespace challenge.Services
 
             return newEmployee;
         }
+
+        public ReportingStructure GetReportingStructure(String id)
+        {
+            Employee baseEmployee = GetById(id);
+            int count = baseEmployee.DirectReports.Count;
+            foreach(Employee employee in baseEmployee.DirectReports)
+            {
+                List<Employee> reports = GetById(employee.EmployeeId).DirectReports;
+                if(reports != null)
+                    count += reports.Count;
+            }
+            return new ReportingStructure { employee = baseEmployee, numberOfReports = count };
+        }
     }
 }

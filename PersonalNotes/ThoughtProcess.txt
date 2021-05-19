@@ -1,0 +1,2 @@
+"The number of reports is determined to be the number of directReports for an employee and all of their direct reports"
+	- Does this keep going all the way down the line? Or does it just stop after an employee's direct reports and their direct reports
