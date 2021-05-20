@@ -26,7 +26,6 @@ namespace challenge.Services
                 _employeeRepository.Add(employee);
                 _employeeRepository.SaveAsync().Wait();
             }
-
             return employee;
         }
 
@@ -36,7 +35,6 @@ namespace challenge.Services
             {
                 return _employeeRepository.GetById(id);
             }
-
             return null;
         }
 
