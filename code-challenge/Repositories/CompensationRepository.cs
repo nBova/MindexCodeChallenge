@@ -20,6 +20,12 @@ namespace challenge.Repositories
             _logger = logger;
         }
 
+        /**
+         * Very simple method to add a Compensation to the Compensation Database.
+         * Creates a unique GUID for the compensation so that it may be stored.
+         * 
+         * Returns the created Compensation with it's new GUID
+         */
         public Compensation AddCompensation(Compensation compensation)
         {
             compensation.CompensationId = Guid.NewGuid().ToString();
@@ -27,8 +33,13 @@ namespace challenge.Repositories
             return compensation;
         }
 
+        /**
+         * Gets and Returns a Compensation given an Employee Id. 
+         * This is assuming there are no two Compensations with the same Employee.
+         */
         public Compensation GetById(String id)
         {
+            // We want to make sure we include the employee in the GET
             return _compensationContext.Compensations.Include(e => e.employee).SingleOrDefault(e => e.employee.EmployeeId == id);
         }
 

@@ -21,6 +21,12 @@ namespace challenge.Controllers
         }
 
         [HttpPost]
+        /**
+         * POST request to add a compensation to the Compensation DB.
+         * 
+         * Takes a Compensation in the form of JSON, converts it to the object, and adds it to the DB.
+         * Returns the status of the request
+         */
         public IActionResult CreateCompensation([FromBody] Compensation compensation)
         {
             _logger.LogDebug($"Received compensation create request for Employee with id: '{compensation.employee.EmployeeId}'");
@@ -31,6 +37,12 @@ namespace challenge.Controllers
         }
 
         [HttpGet("{id}", Name = "getCompensationByEmployeeId")]
+        /**
+         * GET request to get a Compensation given an Employee Id
+         * 
+         * Uses the compensation service to get the correct Compensation with the given Employee Id as a parameter in the request
+         * Returns the compensation along with the status of the request
+         */
         public IActionResult GetCompensationByEmployeeId(String id)
         {
             _logger.LogDebug($"Received compensation get request for Employee with id: '{id}'");

@@ -22,6 +22,11 @@ namespace challenge.Controllers
         }
 
         [HttpGet("{id}")]
+        /**
+         * GET request to find the total number of reports under am employee
+         * 
+         * Returns a reporting structure and the status of the request
+         */
         public IActionResult GetReportingStructure(String id)
         {
             _logger.LogDebug($"Received Reporting Structure get request for '{id}'");

@@ -21,8 +21,10 @@ namespace challenge.Services
 
         public Compensation AddCompensation(Compensation compensation)
         {
+            // We don't want to add a null compensation!
             if(compensation != null)
             {
+                // utilize our repository class
                 _compensationRepository.AddCompensation(compensation);
                 _compensationRepository.SaveAsync();
             }
@@ -31,6 +33,7 @@ namespace challenge.Services
 
         public Compensation GetById(String id)
         {
+            // Can't get if the string is empty
             if (!String.IsNullOrEmpty(id))
             {
                 return _compensationRepository.GetById(id);
