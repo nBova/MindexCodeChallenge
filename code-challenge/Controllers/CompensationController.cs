@@ -14,6 +14,12 @@ namespace challenge.Controllers
         private readonly ILogger _logger;
         private readonly ICompensationService _compensationService;
 
+        public CompensationController(ILogger<CompensationController> logger, ICompensationService compensationService)
+        {
+            _logger = logger;
+            _compensationService = compensationService;
+        }
+
         [HttpPost]
         public IActionResult CreateCompensation([FromBody] Compensation compensation)
         {
@@ -21,11 +27,11 @@ namespace challenge.Controllers
 
             _compensationService.AddCompensation(compensation);
 
-            return CreatedAtRoute("getCompensationById", new { id = compensation.employee.EmployeeId }, compensation);
+            return CreatedAtRoute("getCompensationByEmployeeId", new { id = compensation.employee.EmployeeId }, compensation);
         }
 
-        [HttpGet("{id}", Name = "getCompensationById")]
-        public IActionResult GetCompensationById(String id)
+        [HttpGet("{id}", Name = "getCompensationByEmployeeId")]
+        public IActionResult GetCompensationByEmployeeId(String id)
         {
             _logger.LogDebug($"Received compensation get request for Employee with id: '{id}'");
 
